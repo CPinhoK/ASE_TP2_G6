@@ -69,16 +69,15 @@ static void temp_to_led_task(void *arg) {
       // Update duty to apply the new value
       ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, LEDC_CHANNEL));
     }
-    else if (temperature_value == initial_temp)
-    {
-      // Maintain the intensity by keeping the duty to 50%
-      ESP_ERROR_CHECK(ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, LEDC_DUTY_50));
+    else if (temperature_value < initial_temp) {
+      // Decrease the intensity by setting the duty to 25%
+      ESP_ERROR_CHECK(ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, LEDC_DUTY_25));
       // Update duty to apply the new value
       ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, LEDC_CHANNEL));
     }
     else {
-      // Decrease the intensity by setting the duty to 25%
-      ESP_ERROR_CHECK(ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, LEDC_DUTY_25));
+      // Maintain the intensity by keeping the duty to 50%
+      ESP_ERROR_CHECK(ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, LEDC_DUTY_50));
       // Update duty to apply the new value
       ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, LEDC_CHANNEL));
     }
