@@ -101,7 +101,7 @@ void app_main(void)
 
 		for(int i=0;i<len;i++){
 			ESP_LOGI(TAG,"Val - %02x\n",rbuf[i]);
-			vTaskDelay(10);//main freq
+			vTaskDelay(25);//main freq
 			ret=dac_output_voltage(channel_25,(u_int8_t)rbuf[i]);
 				if (ret != ESP_OK) {
 					ESP_LOGE(TAG, "Set of DAC output failed %u",ret);
