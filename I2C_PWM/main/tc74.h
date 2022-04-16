@@ -23,7 +23,7 @@ static const char *TAG = "TC74";
 #define TC74_SLAVE_ADDR_A4   0x4C
 #define TC74_SLAVE_ADDR_A5   0x4D  /*!< default slave address for TC74 sensor */
 #define TC74_SLAVE_ADDR_A6   0x4E
-#define TC74_SLAVE_ADDR_A6   0x4F
+#define TC74_SLAVE_ADDR_A7   0x4F
 
 #define READ_TEMP_REGISTER          0x00
 #define READ_WRITE_CONFIG_REGISTER  0x01

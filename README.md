@@ -3,6 +3,8 @@ Mini Projects for the class of Arquiteturas para Sistemas Embutidos regarding th
 
 # Application 1: I2C + PWM
 
+### Logical schematic diagram
+![plot](./I2C_PWM/I2C-PWM.png)
 
 # Application 2: SPI + DAC
 In this app the ESP32-DevKitC SPI Master Driver is used to write data to the device 25LC040A SPI EEPROM , this data is then read and set as the output for the DAC channel 1. Each two iterations the eeprom is written with incrementing or decrementing values depending how it was before.  
