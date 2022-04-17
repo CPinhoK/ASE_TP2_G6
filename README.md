@@ -2,6 +2,7 @@
 Mini Projects for the class of Arquiteturas para Sistemas Embutidos regarding the ESP32 architecture.
 
 # Application 1: I2C + PWM
+In this app we use I2C communication to get the temperature reading from the TC74 temperature sensor. Then with this value, we use the led pwm controller to control the luminosity intensity of a led. So if the temperature is increased the luminosity gets stronger, otherwise it gets weaker.
 
 ### Logical schematic diagram
 ![plot](./I2C_PWM/I2C-PWM.png)

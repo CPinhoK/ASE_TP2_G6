@@ -1,0 +1,9 @@
+In this app we use I2C communication to get the temperature reading from the TC74 temperature sensor. Then with this value, we use the led pwm controller to control the luminosity intensity of a led. So if the temperature is increased the luminosity gets stronger, otherwise it gets weaker.
+
+Notable Pins
+
+GND -> GND
+VDD -> 3.3v
+SDA -> GPIO21
+SCLK -> GPIO22
+LEDC CHANNEL -> GPIO2
