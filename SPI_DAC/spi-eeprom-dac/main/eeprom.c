@@ -46,7 +46,7 @@ void spi_master_init(EEPROM_t * dev)
 
 	int SPI_Frequency = SPI_MASTER_FREQ_8M;
 	dev->_totalBytes = 512;
-	dev->_addressBits = 9;
+	dev->_addressBits = 9;//log2(512)
 	dev->_pageSize = 16;
 	dev->_lastPage = (dev->_totalBytes/dev->_pageSize)-1;
 

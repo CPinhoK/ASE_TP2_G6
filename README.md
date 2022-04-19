@@ -9,7 +9,7 @@ In this module when the temperature sensor is not reading he is set to stanby mo
 ![plot](./I2C_PWM/I2C-PWM.png)
 
 # Application 2: SPI + DAC
-In this app the ESP32-DevKitC SPI Master Driver is used to write data to the device 25LC040A SPI EEPROM , this data is then read and set as the output for the DAC channel 1. Each two iterations the eeprom is written with incrementing or decrementing values depending how it was before.  
+In this app the ESP32-DevKitC SPI Master Driver is used to write data to the device 25LC040A SPI EEPROM , this data is then read and set as the output for the DAC channel 1. Each two iterations the eeprom is written with incrementing or decrementing values depending how it was before. In the begining of the program you can choose if you want to overwrite the data currently in the eeprom. 
 ### Logical schematic diagram
 ![plot](./SPI_DAC/SPI-DAC.png)
 

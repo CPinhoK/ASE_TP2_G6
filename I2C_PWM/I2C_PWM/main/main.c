@@ -14,7 +14,7 @@
 #define LEDC_DUTY_0             (0) // Set duty to 0%. ((2 ** 13) - 1) * 0% = 0
 #define LEDC_DUTY_25            (2500) // Set duty to 25%. ((2 ** 13) - 1) * 25% = 2500
 #define LEDC_DUTY_50            (4095) // Set duty to 50%. ((2 ** 13) - 1) * 50% = 4095
-#define LEDC_DUTY_75            (6143) // Set duty to 50%. ((2 ** 13) - 1) * 75% = 6143
+#define LEDC_DUTY_75            (6143) // Set duty to 75%. ((2 ** 13) - 1) * 75% = 6143
 #define LEDC_DUTY_100           (8191) // Set duty to 100%. ((2 ** 13) - 1) * 100% = 8191
 #define LEDC_FREQUENCY          (5000) // Frequency in Hertz. Set frequency at 5 kHz
 
@@ -117,7 +117,7 @@ static void temp_to_led_task(void *arg) {
       ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, LEDC_CHANNEL));
     }
 
-    vTaskDelay(8000 / portTICK_RATE_MS);
+    vTaskDelay(4000 / portTICK_RATE_MS);
   }
 }
 

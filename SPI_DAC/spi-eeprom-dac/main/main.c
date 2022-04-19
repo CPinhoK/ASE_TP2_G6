@@ -47,6 +47,7 @@ void app_main(void)
 	uint8_t rbuf[512];
 	// Buffer Length
 	int len;
+	int skip=1;
 
 	srand(time(NULL));   // Initialization, should only be called once.
 	ESP_LOGI(TAG, "Should there be a first write ? (y/n)");
@@ -72,22 +73,11 @@ void app_main(void)
 		// Write Byte
 		if(r==(int)'y'){
 			ESP_LOGI(TAG, "Writing Memory with random values");
-			for (int i=0; i<512; i++) {
-				wdata[i]= rand() % 0xff ; // rand() % (max - min + 1) + min;
-			}
+			write_data(dev,'r');
 		}else{
-			for (int i=0; i<512; i++) {
-				wdata[i]=0xff-i;	
-			}
+			write_data(dev,'<');
 		}  
-		for (int addr=0; addr<512;addr++) {
-			len =  eeprom_WriteByte(&dev, addr, wdata[addr]);
-			ESP_LOGD(TAG, "WriteByte(addr=%d) len=%d", addr, len);
-			if (len != 1) {
-				ESP_LOGE(TAG, "WriteByte Fail addr=%d", addr);
-				while(1) { vTaskDelay(1); }
-			}
-		}
+
 	}else{ESP_LOGI(TAG, "Skip Write Memory");}
 
 	ESP_LOGI(TAG, "Read Memory");
@@ -116,31 +106,35 @@ void app_main(void)
 	int flag=0;
 	while(1){
 		if (it % 2 == 0)
-		{
-			if(flag){
-				write_data(dev,'>');
-				ESP_LOGI(TAG,"\nEEPROM set incrementing values\n");
+		{	if(skip){
+				skip=0;
 			}
 			else{
-				write_data(dev,'<');
-				ESP_LOGI(TAG,"\nEEPROM set decrementing values\n");
+				if(flag){
+					write_data(dev,'>');
+					ESP_LOGI(TAG,"\nEEPROM set incrementing values\n");
+				}
+				else{
+					write_data(dev,'<');
+					ESP_LOGI(TAG,"\nEEPROM set decrementing values\n");
+				}
+				flag=!flag;
+				it=0;
 			}
-			flag=!flag;
-			it=0;
 		}
 
 		memset(rbuf, 0, 512);
 		len =  eeprom_Read(&dev, 0, rbuf, 512);
 
 		for(int i=0;i<len;i++){
-			ESP_LOGI(TAG,"Val - %02x\n",rbuf[i]);
-			vTaskDelay(1);//main freq
+			ESP_LOGI(TAG,"Val - %02x",rbuf[i]);
+			vTaskDelay(2);//main freq
 			ret=dac_output_voltage(channel_25,(u_int8_t)rbuf[i]);
 				if (ret != ESP_OK) {
 					ESP_LOGE(TAG, "Set of DAC output failed %u",ret);
 					while(1) { vTaskDelay(1); }
 				}
-        	ESP_LOGI(TAG,"DAC VOLTAGE %02x\r",(u_int8_t) rbuf[i]);
+        	ESP_LOGI(TAG,"DAC VOLTAGE %02x\n",(u_int8_t) rbuf[i]);
 		} 
 		it++;
 	}
