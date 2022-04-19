@@ -89,7 +89,7 @@ void app_main(void)
 			}
 		}
 	}else{ESP_LOGI(TAG, "Skip Write Memory");}
-	
+
 	ESP_LOGI(TAG, "Read Memory");
 	// Read 512 byte from Address=0
 	memset(rbuf, 0, 512);
@@ -159,7 +159,9 @@ void write_data(EEPROM_t dev, char in){
 			wdata[i]=0xff-i;	
 		}
 	}else{
-		return;
+		for (int i=0; i<512; i++) {
+			wdata[i]= rand() % 0xff ; // rand() % (max - min + 1) + min;
+		}
 	}
 
 
