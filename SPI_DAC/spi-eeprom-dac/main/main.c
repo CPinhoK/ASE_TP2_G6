@@ -12,6 +12,8 @@
 #include <driver/dac.h>
 #include <driver/dac_common.h>
 
+
+#include <time.h>
 static const char *TAG = "MAIN";
 
 void dump(uint8_t *dt, int n);
@@ -28,6 +30,7 @@ void app_main(void)
 	int16_t lastPage = eeprom_LastPage(&dev);
 	ESP_LOGI(TAG, "lastPage=%d Page",lastPage);
 
+	
 	// Get Status Register
 	uint8_t reg;
 	esp_err_t ret;
@@ -45,19 +48,49 @@ void app_main(void)
 	// Buffer Length
 	int len;
 
-	// Write Byte
-	for (int i=0; i<512; i++) {
-		wdata[i]=0xff-i;	
-	}  
-	for (int addr=0; addr<512;addr++) {
-		len =  eeprom_WriteByte(&dev, addr, wdata[addr]);
-		ESP_LOGD(TAG, "WriteByte(addr=%d) len=%d", addr, len);
-		if (len != 1) {
-			ESP_LOGE(TAG, "WriteByte Fail addr=%d", addr);
-			while(1) { vTaskDelay(1); }
-		}
-	}
+	srand(time(NULL));   // Initialization, should only be called once.
+	ESP_LOGI(TAG, "Should there be a first write ? (y/n)");
+	//let the use choose
+	char in;
+	in=getchar(); // To consume the newline
+	while(in==255){
+		in=getchar();  
+		vTaskDelay(1);
+	} 
+	//printf("%d\n",in);
 
+	if(in==(int)'y'){
+		ESP_LOGI(TAG, "Should the memory be filled with random values (y/n)");
+		//let the use choose
+		char r;
+		r=getchar(); // To consume the newline
+			while(r==255){
+			r=getchar();  
+			vTaskDelay(1);
+		} 
+		ESP_LOGI(TAG, "Writing Memory");
+		// Write Byte
+		if(r==(int)'y'){
+			ESP_LOGI(TAG, "Writing Memory with random values");
+			for (int i=0; i<512; i++) {
+				wdata[i]= rand() % 0xff ; // rand() % (max - min + 1) + min;
+			}
+		}else{
+			for (int i=0; i<512; i++) {
+				wdata[i]=0xff-i;	
+			}
+		}  
+		for (int addr=0; addr<512;addr++) {
+			len =  eeprom_WriteByte(&dev, addr, wdata[addr]);
+			ESP_LOGD(TAG, "WriteByte(addr=%d) len=%d", addr, len);
+			if (len != 1) {
+				ESP_LOGE(TAG, "WriteByte Fail addr=%d", addr);
+				while(1) { vTaskDelay(1); }
+			}
+		}
+	}else{ESP_LOGI(TAG, "Skip Write Memory");}
+	
+	ESP_LOGI(TAG, "Read Memory");
 	// Read 512 byte from Address=0
 	memset(rbuf, 0, 512);
 	len =  eeprom_Read(&dev, 0, rbuf, 512);
@@ -101,7 +134,7 @@ void app_main(void)
 
 		for(int i=0;i<len;i++){
 			ESP_LOGI(TAG,"Val - %02x\n",rbuf[i]);
-			vTaskDelay(25);//main freq
+			vTaskDelay(1);//main freq
 			ret=dac_output_voltage(channel_25,(u_int8_t)rbuf[i]);
 				if (ret != ESP_OK) {
 					ESP_LOGE(TAG, "Set of DAC output failed %u",ret);
