@@ -91,8 +91,7 @@ def send2displays(value,flag):
 
 def temperature_of_raspberry_pi():
     cpu_temp = os.popen("vcgencmd measure_temp").readline()
-    s = cpu_temp.replace("temp=", "")
-    return s.replace("'C", "").split(".")[0]
+    return cpu_temp.replace("temp=", "").split(".")[0]
         
 def mainl():
 	i = 0
