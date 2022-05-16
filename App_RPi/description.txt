@@ -1,0 +1,2 @@
+This project consist in reading the ambient temperature from the TC74 temperature sensor 
+and displaying it in a dual multiplexed 7 segment display.
