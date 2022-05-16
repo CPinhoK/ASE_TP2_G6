@@ -3,7 +3,8 @@ import os,subprocess,signal
 import RPi.GPIO as GPIO
 from time import sleep
 import board
-import adafruit_tc74
+from datetime import datetime
+
 
 def setup():
     GPIO.setwarnings(False)  # Do not show any warnings
@@ -88,30 +89,51 @@ def send2displays(value,flag):
         
     displayFlag= not displayFlag
     return displayFlag
-
-def temperature_of_raspberry_pi():
-    cpu_temp = subprocess.Popen(['vcgencmd', 'measure_temp'],stdout=subprocess.PIPE)
-    temp = cpu_temp.stdout.readline()
-    print(temp)
-    strtemp= temp.decode('utf-8')
-    rtemp= strtemp.replace("temp=", "").split(".")[0]
-    print(rtemp)
-    os.kill(cpu_temp.pid,signal.SIGTERM)
-    return int(rtemp)
+def traco():
+    GPIO.output(19,1)
+    GPIO.output(26,1)
+    
+    GPIO.output(7, 0) # A
+    GPIO.output(1,  0) # B
+    GPIO.output(21, 0) # C
+    GPIO.output(20, 0) # D
+    GPIO.output(16, 0) # E
+    GPIO.output(8, 0) # F
+    GPIO.output(25, 0) # G
+            
+    GPIO.output(25,1)
+def clean():
+    GPIO.output(19,1)
+    GPIO.output(26,1)
+    
+    GPIO.output(7, 0) # A
+    GPIO.output(1,  0) # B
+    GPIO.output(21, 0) # C
+    GPIO.output(20, 0) # D
+    GPIO.output(16, 0) # E
+    GPIO.output(8, 0) # F
+    GPIO.output(25, 0) # G
         
 def mainl():
 	i = 0
 	fl=False
-	temp = temperature_of_raspberry_pi()
 	
+	now = datetime.now()
+	dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+	print("date and time =", dt_string)
+	flag=True
+	digits=int(now.year)%100
+	chain=[int(now.year)%100,int(now.year),int(now.month),int(now.day),int(now.hour),int(now.minute),int(now.second)]
+	it = 1
 	while(1):
 		i+=1
-		fl=send2displays(temp,fl)
-		sleep(0.00001)
-		
-		if(i % 7500 == 0):
-			print(f"Temperature: {temp} C")
-			temp = temperature_of_raspberry_pi()
+		print(i)
+		sleep(0.0001)
+		fl=send2displays(digits,fl)
+		if(i % 10000 == 0 ):
+			clean()
+			digits
+			print("year-%d",int(now.year))
 			
 	return 0
 

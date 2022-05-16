@@ -1,5 +1,5 @@
 # Seven Segment Display with RPi
-import os,subprocess,signal
+
 import RPi.GPIO as GPIO
 from time import sleep
 import board
@@ -88,30 +88,26 @@ def send2displays(value,flag):
         
     displayFlag= not displayFlag
     return displayFlag
-
-def temperature_of_raspberry_pi():
-    cpu_temp = subprocess.Popen(['vcgencmd', 'measure_temp'],stdout=subprocess.PIPE)
-    temp = cpu_temp.stdout.readline()
-    print(temp)
-    strtemp= temp.decode('utf-8')
-    rtemp= strtemp.replace("temp=", "").split(".")[0]
-    print(rtemp)
-    os.kill(cpu_temp.pid,signal.SIGTERM)
-    return int(rtemp)
         
 def mainl():
 	i = 0
 	fl=False
-	temp = temperature_of_raspberry_pi()
+	gi=0
 	
 	while(1):
 		i+=1
-		fl=send2displays(temp,fl)
+		gi+=1
 		sleep(0.00001)
-		
-		if(i % 7500 == 0):
-			print(f"Temperature: {temp} C")
-			temp = temperature_of_raspberry_pi()
+		print(i)
+		if(i <5000):
+			fl=send2displays(88,fl)
+		if(i >5000):
+			GPIO.output(19,0)
+			GPIO.output(26,0)
+		if(i >10000):
+			i=0
+		if(gi > 30000):
+			return 0
 			
 	return 0
 
@@ -127,3 +123,4 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print("Keyboard Interrupt Detected")
         destroy()
+

@@ -36,12 +36,16 @@ async def root(s: str):
 		os.kill(pid,signal.SIGTERM)
 		pid=None
 		time.sleep(1)
+	if(s=="None"):
+		proc = subprocess.Popen(['python', 'blink.py'])
+		pid= proc.pid
+		print(pid)
 	if(s=="Ambient"):
-		proc = subprocess.Popen(['python', 'test3.py'])
+		proc = subprocess.Popen(['python', 'sensor_temp.py'])
 		pid= proc.pid
 		print(pid)
 	if(s=="Chip"):
-		proc = subprocess.Popen(['python', 'test2.py'])
+		proc = subprocess.Popen(['python', 'chip_temp.py'])
 		pid= proc.pid
 		print(pid)
 	return {"message": "Running "+str(pid)}
