@@ -2,8 +2,8 @@
 
 import RPi.GPIO as GPIO
 from time import sleep
-import os
-import time
+import board
+import adafruit_tc74
 
 def setup():
     GPIO.setwarnings(False)  # Do not show any warnings
@@ -89,43 +89,27 @@ def send2displays(value,flag):
     displayFlag= not displayFlag
     return displayFlag
 
-
-        
-def mainl():
-    counter = 0
-    i = 0
-    fl=False
-    while(1):
-        i+=1
-        fl=send2displays(counter,fl)
-        sleep(0.01)
-        #GPIO.output(25,1)
-        if(i % 100 == 0): # increment counter
-            counter+=1
-            if(counter==99):
-                counter=0
-            print(counter)
-            
-    return 0
-def mainl2():
-    GPIO.output(19,1)
-    GPIO.output(26,1) # High
-    fl=False
-    while(1):
-        fl=send2displays(23,fl)
-        #PORT(0x3F)
-        print(fl)
-        sleep(0.01)
-    return 0
-    
-
 def temperature_of_raspberry_pi():
     cpu_temp = os.popen("vcgencmd measure_temp").readline()
     return cpu_temp.replace("temp=", "").split(".")[0]
-
-while True:
-    print("Chip temperature = " + temperature_of_raspberry_pi())
-    time.sleep(1)
+        
+def mainl():
+	i = 0
+	fl=False
+	i2c = board.I2C()
+	tc = adafruit_tc74.TC74(i2c, address=0x4d)
+	temp = tc.temperature
+	
+	while(1):
+		i+=1
+		fl=send2displays(temp,fl)
+		sleep(0.00001)
+		
+		if(i % 7500 == 0):
+			print(f"Temperature: {tc.temperature} C")
+			temp = tc.temperature
+			
+	return 0
 
 
 # To destroy/clean-up all the pins
@@ -135,7 +119,7 @@ def destroy():
 if __name__ == '__main__':
     setup()
     try:
-        temperature_of_raspberry_pi()
+        mainl()
     except KeyboardInterrupt:
         print("Keyboard Interrupt Detected")
         destroy()
