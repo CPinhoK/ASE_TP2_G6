@@ -1,5 +1,5 @@
 # Seven Segment Display with RPi
-
+import os,subprocess,signal
 import RPi.GPIO as GPIO
 from time import sleep
 import board
@@ -90,15 +90,16 @@ def send2displays(value,flag):
     return displayFlag
 
 def temperature_of_raspberry_pi():
-    cpu_temp = os.popen("vcgencmd measure_temp").readline()
-    return cpu_temp.replace("temp=", "").split(".")[0]
+    cpu_temp = subprocess.Popen(['vcgencmd', 'measure_temp'],stdout=subprocess.PIPE)
+    cpu_temp=cpu_temp.stdout.readline()
+    temp= cpu_temp.replace("temp=", "").split(".")[0]
+    os.kill(cpu_temp.pid,signal.SIGTERM)
+    return temp
         
 def mainl():
 	i = 0
 	fl=False
-	i2c = board.I2C()
-	tc = adafruit_tc74.TC74(i2c, address=0x4d)
-	temp = tc.temperature
+	temp = temperature_of_raspberry_pi()
 	
 	while(1):
 		i+=1
@@ -106,8 +107,8 @@ def mainl():
 		sleep(0.00001)
 		
 		if(i % 7500 == 0):
-			print(f"Temperature: {tc.temperature} C")
-			temp = tc.temperature
+			print(f"Temperature: {temp} C")
+			temp = temperature_of_raspberry_pi()
 			
 	return 0
 

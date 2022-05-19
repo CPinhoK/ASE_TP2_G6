@@ -29,22 +29,23 @@ app.add_middleware(
 )
 
 
-@app.get("/")
+@app.post("/") 
 async def root(s: str):
 	global pid
 	if(pid!=None):
-		os.killpg(pid, signal.SIGTERM)
+		os.kill(pid,signal.SIGTERM)
+		pid=None
+		time.sleep(1)
 	if(s=="Ambient"):
-		proc = subprocess.Popen("python script.py", shell=True, preexec_fn=os.setsid)
+		proc = subprocess.Popen(['python', 'test3.py'])
 		pid= proc.pid
+		print(pid)
 	if(s=="Chip"):
-		proc = subprocess.Popen("python test2.py", shell=True, preexec_fn=os.setsid)
+		proc = subprocess.Popen(['python', 'test2.py'])
 		pid= proc.pid
-	return {"message": "Running "+pid}
+		print(pid)
+	return {"message": "Running "+str(pid)}
 
 @app.get("/status")
 async def get_status():
     return 0
-
-def killlast():
-	pass

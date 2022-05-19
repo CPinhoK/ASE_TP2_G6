@@ -6,14 +6,11 @@
 </head>
 
 <body>
-    
-
-    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-    
+      
     <h1 style="color: red">ASE_TP2_G6 Raspberry Pi App</h1>
 
     <label for="function">What u want to be presented in the Display:</label>
-    <select name="function" id="function">
+    <select name="function" id="function" onChange="ts(this.value)">
         <option value="None" selected>Nothing</option>
         <option value="Ambient">Ambient Temperature</option>
         <option value="Chip">Chip Temperature</option>
@@ -21,9 +18,21 @@
     </select>
     
     <script>
-
-    $("#function").on("change",new function(){
     
-    });
+        
+        function ts(val) {
+            console.log(val)
+            var url= "http://127.0.0.1:8000/?s=" + val
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send();
+            xhr.onload = function() {
+                console.log(this.responseText);
+                var data = JSON.parse(this.responseText);
+              }
+
+          }
     </script>
 </body>
