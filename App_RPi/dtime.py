@@ -161,6 +161,7 @@ def mainl():
                 print("traco")
                 sleep(0.00001)
                 iniri+=1
+            clean()
             if(it<len(chain)):
                 digits=chain[it]
             it+=1
