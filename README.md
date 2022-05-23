@@ -33,13 +33,10 @@ In this app the ESP32-DevKitC the DAC module is used to create a voltage that is
 This project consists in a web server to choose what to be presented in a dual multiplexed 7 segment display.
 In the web server the user can choose between 4 diferent functions that will change what will be presented in the displays
 
-⋅⋅* Function 1 - "Nothing" - The displays will blink and turn off.
-⋅⋅* Function 2 - "Ambient Temperature" - The displays will present the temperature read in the TC74 temperature sensor.
-⋅⋅* Function 3 - "Chip Temperature" - The displays will present the temperature on the raspberry pi chip.
-⋅⋅* Function 4 - "Date" - The displays will present the current date.
-* Unordered list can use asterisks
-- Or minuses
-+ Or pluses
+* Function 1 - "Nothing" - The displays will blink and turn off.
+* Function 2 - "Ambient Temperature" - The displays will present the temperature read in the TC74 temperature sensor.
+* Function 3 - "Chip Temperature" - The displays will present the temperature on the raspberry pi chip.
+* Function 4 - "Date" - The displays will present the current date.
 
 ### Logical schematic diagram
 ![plot](./App_RPi/diagram.png)
