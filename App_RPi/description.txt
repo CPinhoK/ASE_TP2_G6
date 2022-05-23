@@ -3,4 +3,4 @@ In the web server the user can chose between 4 diferent functions that will chan
     Function 1 - "Nothing" - The displays are turned off.
     Function 2 - "Ambient Temperature" - The displays will present the temperature read in the TC74 temperature sensor.
     Function 3 - "Chip Temperature" - The displays will present the temperature on the raspberry pi chip.
-    Function 4 - "Date" - The displays will present the currently date.
+    Function 4 - "Date" - The displays will present the current date.
