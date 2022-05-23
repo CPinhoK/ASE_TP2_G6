@@ -37,6 +37,9 @@ In the web server the user can choose between 4 diferent functions that will cha
 ⋅⋅* Function 2 - "Ambient Temperature" - The displays will present the temperature read in the TC74 temperature sensor.
 ⋅⋅* Function 3 - "Chip Temperature" - The displays will present the temperature on the raspberry pi chip.
 ⋅⋅* Function 4 - "Date" - The displays will present the current date.
+* Unordered list can use asterisks
+- Or minuses
++ Or pluses
 
 ### Logical schematic diagram
 ![plot](./App_RPi/diagram.png)
