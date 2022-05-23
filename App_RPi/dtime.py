@@ -103,8 +103,8 @@ def traco():
             
     GPIO.output(25,1)
 def clean():
-    GPIO.output(19,1)
-    GPIO.output(26,1)
+    GPIO.output(19,0)
+    GPIO.output(26,0)
     
     GPIO.output(7, 0) # A
     GPIO.output(1,  0) # B
@@ -114,28 +114,58 @@ def clean():
     GPIO.output(8, 0) # F
     GPIO.output(25, 0) # G
         
+       
 def mainl():
-	i = 0
-	fl=False
+    i = 0
+    fl=False
 	
-	now = datetime.now()
-	dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-	print("date and time =", dt_string)
-	flag=True
-	digits=int(now.year)%100
-	chain=[int(now.year)%100,int(now.year),int(now.month),int(now.day),int(now.hour),int(now.minute),int(now.second)]
-	it = 1
-	while(1):
-		i+=1
-		print(i)
-		sleep(0.0001)
-		fl=send2displays(digits,fl)
-		if(i % 10000 == 0 ):
-			clean()
-			digits
-			print("year-%d",int(now.year))
-			
-	return 0
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    print("date and time =", dt_string)
+    flag=True
+    digits=int(now.year)%100
+    chain=[now.year%100,now.month,now.day,now.hour,now.minute,now.second]
+    for i in range(len(chain)):
+        if chain[i]<10:
+            number_str = str(chain[i])
+            zero_filled_number = int(number_str.zfill(2))
+            print(zero_filled_number)
+            chain.pop(i)
+            chain.insert(i,zero_filled_number)
+    print(chain)
+    it = 1
+    while(1):
+        i+=1
+        sleep(0.00001)
+        print(digits,"----",i)
+        fl=send2displays(digits,fl)
+        if(it>len(chain)):
+            it=0
+            now = datetime.now()
+            dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+            print("date and time =", dt_string)
+            flag=True
+            digits=int(now.year)%100
+            chain=[now.year%100,now.month,now.day,now.hour,now.minute,now.second]
+            for i in range(len(chain)):
+                if chain[i]<10:
+                    number_str = str(chain[i])
+                    zero_filled_number = int(number_str.zfill(2))
+                    chain.pop(i)
+                    chain.insert(i,zero_filled_number)
+            print(chain)
+        if(i % 10000 == 0 ):
+            iniri=0
+            traco()
+            while(iniri<5000):
+                print("traco")
+                sleep(0.00001)
+                iniri+=1
+            if(it<len(chain)):
+                digits=chain[it]
+            it+=1
+        
+    return 0
 
 
 # To destroy/clean-up all the pins

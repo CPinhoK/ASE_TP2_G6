@@ -48,6 +48,10 @@ async def root(s: str):
 		proc = subprocess.Popen(['python', 'chip_temp.py'])
 		pid= proc.pid
 		print(pid)
+	if(s=="Date"):
+		proc = subprocess.Popen(['python', 'dtime.py'])
+		pid= proc.pid
+		print(pid)
 	return {"message": "Running "+str(pid)}
 
 @app.get("/status")
