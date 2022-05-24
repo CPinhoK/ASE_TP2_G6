@@ -47,6 +47,6 @@ In the web server the user can choose between 4 diferent functions that will cha
     
 
 ## Possible breadboard implementation
-![plot](./top_rasbp.jpg)
+![plot](./bettertop.jpg)
 
 ![plot](./side_rasbp.jpg)
