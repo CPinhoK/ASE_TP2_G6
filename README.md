@@ -38,10 +38,14 @@ In the web server the user can choose between 4 diferent functions that will cha
 * Function 3 - "Chip Temperature" - The displays will present the temperature on the raspberry pi chip.
 * Function 4 - "Date" - The displays will present the current date.
 
-### Logical schematic diagram
-![plot](./App_RPi/diagram.png)
+### General Architecture Diagram
+![plot](./App_RPi/general.png)
 
+
+### Logical Schematic Diagram
+![plot](./App_RPi/diagram.png)
     
+
 ## Possible breadboard implementation
 ![plot](./top_rasbp.jpg)
 
