@@ -74,3 +74,12 @@ It should be noted that the video fps was arround 6 for this program
 ![plot](./App_Jetson/graphs/gpustats.png)
 
 It should be noted that the video fps was arround 40 for this program
+
+
+
+### CPU Detection video
+![plot](./App_Jetson/graphs/cpudetect.png)
+
+
+### GPU Detection video
+![plot](./App_Jetson/graphs/gpudetection.png)
