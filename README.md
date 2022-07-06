@@ -61,6 +61,10 @@ Afterwards a parser program is run to grab important information from a logfile 
 ### CPU PROGRAM STATS
 ![plot](./App_Jetson/graphs/cpustats.png)
 
+It should be noted that the video fps was arround 6 for this program
+
 
 ### GPU PROGRAM STATS
 ![plot](./App_Jetson/graphs/gpustats.png)
+
+It should be noted that the video fps was arround 40 for this program
