@@ -67,19 +67,18 @@ RAM stat is the percentage of ram being used at the specified moment.
 ### CPU PROGRAM STATS
 ![plot](./App_Jetson/graphs/cpustats.png)
 
-It should be noted that the video fps was arround 6 for this program
-
 
 ### GPU PROGRAM STATS
 ![plot](./App_Jetson/graphs/gpustats.png)
-
-It should be noted that the video fps was arround 40 for this program
 
 
 
 ### CPU Detection video
 ![plot](./App_Jetson/graphs/cpudetect.png)
 
+It should be noted that the video fps was arround 6 for this program
 
 ### GPU Detection video
 ![plot](./App_Jetson/graphs/gpudetection.png)
+
+It should be noted that the video fps was arround 40 for this program
