@@ -58,6 +58,10 @@ Afterwards a parser program is run to grab important information from a logfile 
 
 
 
+CPU stat is the average of the Quad-core ARM® A57 @ 1.43 GHz in percentage
+GPU stat is frequency  of the 128-core NVIDIA Maxwell™ GHz in percentage
+RAM stat is the percentage of ram being used at the specified moment
+
 ### CPU PROGRAM STATS
 ![plot](./App_Jetson/graphs/cpustats.png)
 
