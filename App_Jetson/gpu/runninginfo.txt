@@ -1,0 +1,6 @@
+sudo tegrastats --interval 500 --logfile gpustats.txt
+
+cd ssd 
+NET=models/mymodel
+detectnet --input-rate=60 --input-height=480 --input-width=640 --model=$NET/ssd-mobilenet.onnx --labels=$NET/labels.txt --input-blob=input_0 --output-cvg=scores --output-bbox=boxes --threshold=0.2 /dev/video0
+

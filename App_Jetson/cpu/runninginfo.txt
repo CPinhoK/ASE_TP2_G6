@@ -1,0 +1,4 @@
+sudo tegrastats --interval 500 --logfile cpustats.txt
+
+python3 cpufacedetect.py
+
