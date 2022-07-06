@@ -53,7 +53,7 @@ In the web server the user can choose between 4 diferent functions that will cha
 
 
 # Application NvidiaJetson Nano
-This project consists of a program that will detect based on video feed from a camera if a human face is wearing a mask and it will do so with the help of the GPU and another program that detects a human face and it will do so with the CPU. Simultaneously the command ```bash tegrastats ``` should be run to save information of the computing resources currently at use
+This project consists of a program that will detect based on video feed from a camera if a human face is wearing a mask and it will do so with the help of the GPU and another program that detects a human face and it will do so with the CPU. Simultaneously the command ``` tegrastats ``` should be run to save information of the computing resources currently at use
 Afterwards a parser program is run to grab important information from a logfile and to display it in the form of a graph.
 
 
